@@ -1,0 +1,234 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    margin: 0;
+    padding: 32px 16px;
+    display: grid;
+    place-items: center;
+    background: linear-gradient(135deg, #eaf3f1, #f5f1e8);
+    color: #20312f;
+    font-family: "Segoe UI", Tahoma, sans-serif;
+}
+
+/* Cartão: estreito por omissão (login, registo) */
+main {
+    
+    padding: 36px;
+    border: 1px solid #d7e1dc;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 18px 48px rgba(32, 49, 47, 0.1);
+}
+
+/* Cartão largo (lista de bolsas) */
+main.largo {
+    width: min(100%, 1100px);
+    overflow-x: auto;
+}
+
+h1 {
+    margin: 0 0 8px;
+    color: #173f3a;
+    font-size: 28px;
+}
+
+form {
+    display: grid;
+    gap: 10px;
+    margin-top: 26px;
+}
+
+label {
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+input {
+    width: 100%;
+    min-height: 44px;
+    padding: 10px 12px;
+    border: 1px solid #b9c8c2;
+    border-radius: 4px;
+    background: #fff;
+    color: inherit;
+    font: inherit;
+}
+
+input:focus {
+    border-color: #28796d;
+    outline: 3px solid rgba(40, 121, 109, 0.16);
+}
+
+button {
+    min-height: 46px;
+    margin-top: 12px;
+    border: 0;
+    border-radius: 4px;
+    background: #17675d;
+    color: #fff;
+    cursor: pointer;
+    font: inherit;
+    font-weight: 700;
+}
+
+button:hover {
+    background: #10554c;
+}
+
+a {
+    color: #17675d;
+    font-weight: 600;
+}
+
+/* Menu */
+nav {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 28px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #d7e1dc;
+}
+
+nav form {
+    margin: 0;
+}
+
+nav button {
+    min-height: 0;
+    margin: 0;
+    padding: 6px 14px;
+}
+
+nav span {
+    margin-left: auto;
+    font-size: 14px;
+}
+
+/* Pesquisa: caixa e botão na mesma linha */
+.pesquisa {
+    display: flex;
+    gap: 10px;
+    align-items: end;
+}
+
+.pesquisa label {
+    flex: 1;
+    margin-top: 0;
+}
+
+.pesquisa button {
+    margin-top: 0;
+    padding: 0 28px;
+}
+
+/* Tabela */
+table {
+    width: 100%;
+    margin-top: 26px;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 14px 12px;
+    border-bottom: 1px solid #d7e1dc;
+    text-align: left;
+}
+
+th {
+    background: #eaf3f1;
+    color: #173f3a;
+    font-size: 14px;
+}
+
+tr:hover td {
+    background: #f6faf8;
+}
+
+table.bolsas th:nth-child(4), table.bolsas td:nth-child(4) {
+    text-align: right;
+    white-space: nowrap;
+}
+
+table.bolsas td:nth-child(5) {
+    white-space: nowrap;
+}
+
+td a {
+    display: inline-block;
+    padding: 6px 14px;
+    border: 1px solid #17675d;
+    border-radius: 4px;
+    text-decoration: none;
+}
+
+td a:hover {
+    background: #17675d;
+    color: #fff;
+}
+
+.botao {
+    display: inline-block;
+    padding: 10px 18px;
+    border-radius: 4px;
+    background: #17675d;
+    color: #fff;
+    text-decoration: none;
+}
+
+.botao:hover {
+    background: #10554c;
+}
+
+/* Mensagens */
+.erro {
+    margin: 16px 0 0;
+    padding: 10px 12px;
+    border-left: 4px solid #b3261e;
+    background: #fdeceb;
+    color: #7a1a14;
+}
+
+.ok {
+    margin: 16px 0 0;
+    padding: 10px 12px;
+    border-left: 4px solid #17675d;
+    background: #eaf3f1;
+    color: #10554c;
+}
+
+/* Campos de texto grande e listas */
+textarea,
+select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #b9c8c2;
+    border-radius: 4px;
+    background: #fff;
+    color: inherit;
+    font: inherit;
+}
+
+textarea:focus,
+select:focus {
+    border-color: #28796d;
+    outline: 3px solid rgba(40, 121, 109, 0.16);
+}
+
+/* Bloco de pergunta/resposta e de observação */
+.caixa {
+    margin-top: 16px;
+    padding: 4px 16px 16px;
+    border: 1px solid #d7e1dc;
+    border-radius: 4px;
+}
+
+/* Botões e formulários dentro de uma tabela ou numa linha */
+form.linha {
+    margin-top: 12px;
+}
