@@ -2,6 +2,11 @@
 
 class Utilizador
 {
+    // NOVO: limites contra brute-force: máximo de falhas dentro da janela de tempo
+    private const MAX_FALHAS_POR_USERNAME = 5;
+    private const MAX_FALHAS_POR_IP = 20;
+    private const JANELA_MINUTOS = 15;
+
     public function __construct(private PDO $pdo) {}
 
     public function criarCandidato(string $username, string $hash, string $nome, string $email): void
@@ -74,4 +79,39 @@ class Utilizador
         $stmt->execute([$novoHash, $id]);
     }
 
+    // ---------- NOVO: Proteção contra brute-force no login ----------
+
+    // true se o username ou o IP já falharam demasiadas vezes nos últimos minutos
+    public function demasiadasTentativas(string $username, string $ip): bool
+    {
+        $janela = 'data_tentativa > NOW() - INTERVAL ' . self::JANELA_MINUTOS . ' MINUTE';
+
+        $stmt = $this->pdo->prepare("SELECT COUNT(*) FROM tentativas_login WHERE username = ? AND $janela");
+        $stmt->execute([$username]);
+        if ((int) $stmt->fetchColumn() >= self::MAX_FALHAS_POR_USERNAME) {
+            return true;
+        }
+
+        $stmt = $this->pdo->prepare("SELECT COUNT(*) FROM tentativas_login WHERE ip = ? AND $janela");
+        $stmt->execute([$ip]);
+
+        return (int) $stmt->fetchColumn() >= self::MAX_FALHAS_POR_IP;
+    }
+
+    // Guarda uma tentativa falhada (também quando o username não existe)
+    public function registarFalhaDeLogin(string $username, string $ip): void
+    {
+        $stmt = $this->pdo->prepare('INSERT INTO tentativas_login (username, ip) VALUES (?, ?)');
+        $stmt->execute([$username, $ip]);
+
+        // Limpeza: apaga o que já tem mais de um dia
+        $this->pdo->exec('DELETE FROM tentativas_login WHERE data_tentativa < NOW() - INTERVAL 1 DAY');
+    }
+
+    // Depois de um login correto, as falhas desse username deixam de contar
+    public function limparFalhasDeLogin(string $username): void
+    {
+        $stmt = $this->pdo->prepare('DELETE FROM tentativas_login WHERE username = ?');
+        $stmt->execute([$username]);
+    }
 }

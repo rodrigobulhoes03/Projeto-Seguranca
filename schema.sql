@@ -87,6 +87,15 @@ create table historico_estados(
   foreign key (id_utilizador)  references utilizadores(id)
 );
 
+create table tentativas_login(
+    id int unsigned auto_increment primary key,
+    username varchar(50) not null,
+    ip varchar(45) not null,
+    data_tentativa datetime not null default current_timestamp,
+    index idx_tentativas_username (username, data_tentativa),
+    index idx_tentativas_ip (ip, data_tentativa)
+);
+
 insert into bolsas (designacao, tipo_apoio, area_estudo, requisitos, montante, prazo) values
 ('Bolsa de Mérito Científico', 'Bolsa de estudo', 'Ciências Exatas',
  'Média igual ou superior a 16 valores e inscrição em curso da área das ciências exatas.',

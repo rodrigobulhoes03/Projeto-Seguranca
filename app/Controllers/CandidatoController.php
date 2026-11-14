@@ -27,11 +27,11 @@ class CandidatoController
         $guardado = false;
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $dados['nome']     = param($_POST, 'nome');
-            $dados['email']    = param($_POST, 'email');
-            $dados['morada']   = param($_POST, 'morada');
+            $dados['nome'] = param($_POST, 'nome');
+            $dados['email'] = param($_POST, 'email');
+            $dados['morada'] = param($_POST, 'morada');
             $dados['telefone'] = param($_POST, 'telefone');
-            $dados['nif']      = param($_POST, 'nif');
+            $dados['nif'] = param($_POST, 'nif');
 
             $mensagem = Validador::perfil($dados);
 
@@ -74,8 +74,8 @@ class CandidatoController
         $guardado = false;
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $atual     = senha($_POST, 'password_atual');
-            $nova      = senha($_POST, 'password_nova');
+            $atual = senha($_POST, 'password_atual');
+            $nova = senha($_POST, 'password_nova');
             $confirmar = senha($_POST, 'password_confirmar');
 
             $hashAtual = $this->utilizadores->buscarPasswordHash(Auth::id());
@@ -104,7 +104,7 @@ class CandidatoController
         }
 
         render('candidato/password', [
-            'titulo'   => 'Alterar password',
+            'titulo' => 'Alterar password',
             'mensagem' => $mensagem,
             'guardado' => $guardado,
         ]);
